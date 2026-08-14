@@ -1,0 +1,44 @@
+# Spacecraft and mission parameters.
+
+spacecraft:
+  mass_kg: 4.0
+  envelope_m: [0.1, 0.1, 0.34]
+  inertia_tensor_kgm2:
+    - [0.0450, 0.0012, -0.0008]
+    - [0.0012, 0.0380, 0.0015]
+    - [-0.0008, 0.0015, 0.0082]
+
+actuators:
+  residual_dipole:
+    magnitude_Am2: 0.02
+  magnetorquers:
+    max_dipole_per_axis_Am2: 0.2
+  reaction_wheels:
+    count: 3
+    max_torque_per_axis_mNm: 1.0
+    momentum_storage_per_axis_mNms: 1.5
+    wheel_inertia_kgm2: 3.0e-6
+
+sensors:
+  gyro:
+    angle_random_walk_deg_sqrt_h: 0.1
+    bias_instability_deg_h: 10
+    misalignment_deg: [0.1, 0.1, 0.1]
+    rate_hz: 100
+  magnetometer:
+    noise_nT: 100
+    bias_nT: 500
+    rate_hz: 10
+  sun_sensor:
+    faces: 6
+    accuracy_deg: 2
+    eclipse_output: false
+
+orbit:
+  altitude_km: 500
+  inclination_deg: 97.4
+  type: sun-synchronous
+  # TLE catalog number and epoch: pick a real 3U cubesat TLE from Celestrak
+  # in Task 2.1 and record it here (Task 2.5). Not needed before Sheet 2.
+  tle_catalog_number: null
+  tle_epoch: null
