@@ -16,6 +16,7 @@ Conventions (fixed here, used everywhere else in this project):
 
 """
 import numpy as np
+from dataclasses import dataclass
 
 def quat_to_dcm(q):
     """Convert a quaternion to a direction cosine matrix according to Eq. 2.125"""
@@ -77,3 +78,20 @@ def quat_from_axis_angle(axis, angle):
     q_scalar = np.cos(half_angle)
     q_vector = axis * np.sin(half_angle)
     return np.append(q_vector, q_scalar)
+
+@dataclass
+class State:
+    omega: np.ndarray
+    q: np.ndarray
+
+    def __add__(self, val2):
+        return State(self.omega + val2.omega, self.q + val2.q)
+    
+    def __mul__(self, scalar):
+        return State(self.omega * scalar, self.q * scalar)
+    
+    def __rmul__(self, scalar):
+        return self.__mul__(scalar)
+
+    def normalize_q(self):
+        return State(self.omega, self.q / np.linalg.norm(self.q))
